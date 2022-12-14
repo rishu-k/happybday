@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Happy Birthday - Tanisq</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Pacifico|Great+Vibes|Parisienne" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body id="body">
+    <div id="txt">
+        Happy Birthday Tanisq
+    </div>
+    <audio id="audio" loop style="display:none">
+        <source src="https://dl.dropbox.com/s/c6aq63o2mwuvkui/Happy-Birthday-to-you-Singing-Bell.mp3">
+    </audio>
+    <script>
+        swal({
+            title: "Play music?",
+            buttons: true
+        }).then((confirm) => {
+            if (confirm) {
+                document.getElementById("audio").play()
+            }
+        })
+        class Balloon {
+            constructor() {
+                this.color = `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`
+                this.el = document.createElement("div")
+                this.el.className = "balloon"
+                this.el.style.left = Math.random() * (window.innerWidth - 90) + "px"
+                this.el.style.top = "100%"
+                document.body.appendChild(this.el)
+                this.main = document.createElement("div")
+                this.main.className = "main"
+                this.main.style.background = this.color
+                this.el.appendChild(this.main)
+                this.main1 = document.createElement("div")
+                this.main1.className = "main1"
+                this.main.appendChild(this.main1)
+                this.ball = document.createElement("div")
+                this.ball.className = "ball"
+                this.ball.style.borderBottomColor = this.color
+                this.el.appendChild(this.ball)
+                this.line = document.createElement("div")
+                this.line.className = "line"
+                this.el.appendChild(this.line)
+                this.el.addEventListener("animationiteration", function () {
+                    this.remove()
+                })
+            }
+        }
+        new Balloon()
+        class Stars {
+            constructor(x) {
+                this.el = document.createElement("div")
+                this.el.className = "star"
+                this.size = Math.random() * 3
+                this.el.style.height = this.size + "px"
+                this.el.style.width = this.size + "px"
+                this.el.style.top = "calc(" + Math.random() * 100 + "vh - 3px)"
+                this.el.style.left = "calc(" + Math.random() * 100 + "vw - 3px)"
+                document.getElementById(x).appendChild(this.el)
+            }
+        }
+        for (var x = 0; x < parseInt(window.innerHeight / 3); x++) {
+            new Stars("body")
+        }
+        setInterval(function () {
+            document.getElementById("txt").style.filter = "hue-rotate(" + Math.random() * 360 + "deg)"
+        }, 2000)
+        setInterval(() => {
+            new Balloon()
+        }, 1000)
+        document.body.onclick = (e) => {
+            let x = e.clientX
+            let y = e.clientY
+            let ripple = document.createElement("span")
+            ripple.className = "ripple"
+            ripple.style.left = x - 150 + "px"
+            ripple.style.top = y - 150 + "px"
+            document.body.appendChild(ripple)
+            setTimeout(() => {
+                ripple.remove()
+            }, 500)
+        }
+    </script>
+</body>
+
+</html>
